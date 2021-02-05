@@ -78,7 +78,7 @@ Unix tools:
 * [Git] for version control
 * [OpenSSL] for Transport Layer Security (TLS)
 * [RCM] for managing company and personal dotfiles
-* [The Silver Searcher] for finding things in files
+* [ripgrep] for finding things in files
 * [Tmux] for saving project state and switching between projects
 * [Watchman] for watching for filesystem events
 * [Zsh] as your shell
@@ -87,7 +87,7 @@ Unix tools:
 [Git]: https://git-scm.com/
 [OpenSSL]: https://www.openssl.org/
 [RCM]: https://github.com/thoughtbot/rcm
-[The Silver Searcher]: https://github.com/ggreer/the_silver_searcher
+[ripgrep]: https://github.com/BurntSushi/ripgrep
 [Tmux]: http://tmux.github.io/
 [Watchman]: https://facebook.github.io/watchman/
 [Zsh]: http://www.zsh.org/
@@ -132,6 +132,25 @@ Databases:
 
 [Postgres]: http://www.postgresql.org/
 [Redis]: http://redis.io/
+
+Direnv:
+
+* [direnv] for managing environment variables
+
+[direnv]: https://github.com/direnv/direnv
+
+Docker:
+
+* [Docker] for containers
+
+[Docker]: https://www.docker.com
+
+pinentry-mac:
+
+* [pinentry-mac] for containers
+
+[pinentry-mac]: https://github.com/GPGTools/pinentry
+
 
 It should take less than 15 minutes to install (depends on your machine).
 

@@ -121,7 +121,7 @@ brew "git"
 brew "openssl"
 brew "rcm"
 brew "reattach-to-user-namespace"
-brew "the_silver_searcher"
+brew "ripgrep"
 brew "tmux"
 brew "vim"
 brew "watchman"
@@ -145,7 +145,18 @@ cask "gpg-suite"
 
 # Databases
 brew "postgres", restart_service: :changed
+brew "mysql", restart_service: :changed
 brew "redis", restart_service: :changed
+brew "rabbitmq", restart_service: :changed
+
+# direnv
+brew "direnv"
+
+# Docker
+cask "docker"
+
+# pinentry-mac
+brew pinentry-mac
 EOF
 
 fancy_echo "Update heroku binary ..."

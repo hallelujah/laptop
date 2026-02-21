@@ -110,7 +110,7 @@ GitHub tools:
 
 Image tools:
 
-* [ImageMagick] for cropping and resizing images
+* [libvips] for cropping and resizing images
 
 Programming languages, package managers, and configuration:
 
@@ -122,7 +122,7 @@ Programming languages, package managers, and configuration:
 * [Rosetta 2] for running tools that are not supported in Apple silicon processors
 
 [Bundler]: http://bundler.io/
-[ImageMagick]: http://www.imagemagick.org/
+[libvips]: https://www.libvips.org/
 [Node.js]: http://nodejs.org/
 [npm]: https://www.npmjs.org/
 [asdf-vm]: https://github.com/asdf-vm/asdf

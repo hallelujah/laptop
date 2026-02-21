@@ -88,17 +88,16 @@ sudo dnf install -y \
   rcm \
   ripgrep \
   tmux \
-  vim \
+  neovim \
   zsh \
   gh \
-  ImageMagick \
+  vips \
   poppler-utils \
   libyaml-devel \
   coreutils \
   gnupg2 \
   postgresql-server \
   redis \
-  rabbitmq-server \
   direnv \
   util-linux-user \
   gcc-c++ \

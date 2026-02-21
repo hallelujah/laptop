@@ -1,0 +1,145 @@
+#!/bin/sh
+
+# Welcome to the thoughtbot laptop script (Fedora edition)!
+# Be prepared to turn your laptop (or desktop, no haters here)
+# into an awesome development machine.
+
+# shellcheck disable=SC3043
+
+fancy_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "\\n$fmt\\n" "$@"
+}
+
+append_to_zshrc() {
+  local text="$1" zshrc
+  local skip_new_line="${2:-0}"
+
+  if [ -w "$HOME/.zshrc.local" ]; then
+    zshrc="$HOME/.zshrc.local"
+  else
+    zshrc="$HOME/.zshrc"
+  fi
+
+  if ! grep -Fqs "$text" "$zshrc"; then
+    if [ "$skip_new_line" -eq 1 ]; then
+      printf "%s\\n" "$text" >> "$zshrc"
+    else
+      printf "\\n%s\\n" "$text" >> "$zshrc"
+    fi
+  fi
+}
+
+# shellcheck disable=SC2154
+trap 'ret=$?; test $ret -ne 0 && printf "failed\\n\\n" >&2; exit $ret' EXIT
+
+set -e
+
+if [ ! -d "$HOME/.bin/" ]; then
+  mkdir "$HOME/.bin"
+fi
+
+if [ ! -f "$HOME/.zshrc" ]; then
+  touch "$HOME/.zshrc"
+fi
+
+# shellcheck disable=SC2016
+append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
+
+update_shell() {
+  local shell_path;
+  shell_path="$(command -v zsh)"
+
+  fancy_echo "Changing your shell to zsh ..."
+  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+    fancy_echo "Adding '$shell_path' to /etc/shells"
+    sudo sh -c "echo $shell_path >> /etc/shells"
+  fi
+  sudo chsh -s "$shell_path" "$USER"
+}
+
+case "$SHELL" in
+  */zsh)
+    ;;
+  *)
+    update_shell
+    ;;
+esac
+
+fancy_echo "Updating dnf repositories ..."
+sudo dnf check-update || true
+
+# heroku-cli and yarn are often easier to install via mise/npm if not in dnf
+# Docker on Fedora is often replaced by podman, or you install docker-ce from their repo.
+# For simplicity, we'll stick to what's likely available or commonly used.
+
+# Add github-cli repo if 'gh' is not found (though it is often in Fedora repos)
+if ! rpm -q gh > /dev/null 2>&1; then
+  sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+fi
+
+fancy_echo "Installing core packages via dnf ..."
+sudo dnf install -y \
+  ctags \
+  git \
+  openssl-devel \
+  rcm \
+  ripgrep \
+  tmux \
+  vim \
+  zsh \
+  gh \
+  ImageMagick \
+  poppler-utils \
+  libyaml-devel \
+  coreutils \
+  gnupg2 \
+  postgresql-server \
+  redis \
+  rabbitmq-server \
+  direnv \
+  util-linux-user \
+  gcc-c++ \
+  make \
+  libffi-devel \
+  zlib-devel \
+  readline-devel
+
+# Mise installation
+if ! command -v mise >/dev/null; then
+  fancy_echo "Installing mise ..."
+  curl https://mise.run | sh
+  
+  # shellcheck disable=SC2016
+  append_to_zshrc 'eval "$($HOME/.local/bin/mise activate zsh)"'
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+fancy_echo "Configuring mise ..."
+# shellcheck disable=SC2016
+append_to_zshrc 'eval "$($HOME/.local/bin/mise activate zsh)"' 1
+
+# mise plugins (some are built-in or don't need explicit 'plugin add' if using default registry)
+# For parity with asdf, we ensure they're available.
+mise use -g ruby@latest
+mise use -g node@latest
+
+fancy_echo "Installing latest Ruby via mise ..."
+mise install ruby@latest
+mise use -g ruby@latest
+
+gem update --system
+number_of_cores=$(nproc)
+bundle config --global jobs $((number_of_cores - 1))
+
+fancy_echo "Installing latest Node via mise ..."
+mise install node@latest
+mise use -g node@latest
+
+if [ -f "$HOME/.laptop.local" ]; then
+  fancy_echo "Running your customizations from ~/.laptop.local ..."
+  # shellcheck disable=SC1091
+  . "$HOME/.laptop.local"
+fi

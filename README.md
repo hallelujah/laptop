@@ -27,18 +27,24 @@ Download the script:
 
 ```sh
 curl --remote-name https://raw.githubusercontent.com/hallelujah/laptop/main/mac
+# or for Fedora:
+# curl -o fedora https://raw.githubusercontent.com/hallelujah/laptop/main/fedora
 ```
 
 Review the script (avoid running scripts you haven't read!):
 
 ```sh
 less mac
+# or
+# less fedora
 ```
 
 Execute the downloaded script:
 
 ```sh
 sh mac 2>&1 | tee ~/laptop.log
+# or
+# sh fedora 2>&1 | tee ~/laptop.log
 ```
 
 Optionally, review the log:

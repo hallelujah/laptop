@@ -50,13 +50,12 @@ append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 update_shell() {
   local shell_path;
-  shell_path="$(command -v zsh)"
+  shell_path="/usr/bin/zsh"
 
   fancy_echo "Changing your shell to zsh ..."
-  sudo dnf install -y zsh
   if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
-    fancy_echo "Adding '$shell_path' to /etc/shells"
-    sudo sh -c "echo $shell_path >> /etc/shells"
+    fancy_echo "Installing zsh package"
+    sudo dnf install -y zsh
   fi
   sudo chsh -s "$shell_path" "$USER"
 }
@@ -121,6 +120,7 @@ sudo dnf install -y \
   hostname \
   xz \
   chromium \
+  libatomic \
   shellcheck
 
 # Mise installation

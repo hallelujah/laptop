@@ -16,6 +16,7 @@ We support:
 * macOS Sonoma (14.x) on Apple Silicon and Intel
 * macOS Ventura (13.x) on Apple Silicon and Intel
 * macOS Monterey (12.x) on Apple Silicon and Intel
+* Linux Fedora 43
 
 Older versions may work but aren't regularly tested.
 Bug reports for older versions are welcome.
@@ -27,18 +28,24 @@ Download the script:
 
 ```sh
 curl --remote-name https://raw.githubusercontent.com/hallelujah/laptop/main/mac
+# or for Fedora:
+curl --remote-name https://raw.githubusercontent.com/hallelujah/laptop/main/fedora
 ```
 
 Review the script (avoid running scripts you haven't read!):
 
 ```sh
 less mac
+# or
+less fedora
 ```
 
 Execute the downloaded script:
 
 ```sh
 sh mac 2>&1 | tee ~/laptop.log
+# or
+sh fedora 2>&1 | tee ~/laptop.log
 ```
 
 Optionally, review the log:
@@ -106,11 +113,11 @@ GitHub tools:
 
 Image tools:
 
-* [ImageMagick] for cropping and resizing images
+* [libvips] for cropping and resizing images
 
 Programming languages, package managers, and configuration:
 
-* [asdf-vm] for managing programming language versions
+* [mise] for managing programming language versions
 * [Bundler] for managing Ruby libraries
 * [Node.js] and [npm], for running apps and installing JavaScript packages
 * [Ruby] stable for writing general-purpose code
@@ -118,10 +125,10 @@ Programming languages, package managers, and configuration:
 * [Rosetta 2] for running tools that are not supported in Apple silicon processors
 
 [Bundler]: http://bundler.io/
-[ImageMagick]: http://www.imagemagick.org/
+[libvips]: https://www.libvips.org/
 [Node.js]: http://nodejs.org/
 [npm]: https://www.npmjs.org/
-[asdf-vm]: https://github.com/asdf-vm/asdf
+[mise]: https://mise.jdx.dev/
 [Ruby]: https://www.ruby-lang.org/en/
 [Yarn]: https://yarnpkg.com/en/
 [Rosetta 2]: https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment

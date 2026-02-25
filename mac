@@ -144,7 +144,7 @@ brew "parity"
 brew "gh"
 
 # Image manipulation
-brew "imagemagick"
+brew "vips"
 
 # PDF Rendering
 brew "poppler"

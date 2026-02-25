@@ -83,6 +83,7 @@ fi
 fancy_echo "Installing core packages via dnf ..."
 sudo dnf install -y \
   ctags \
+  zoxide \
   git \
   openssl-devel \
   rcm \
@@ -98,13 +99,14 @@ sudo dnf install -y \
   gnupg2 \
   postgresql-server \
   redis \
-  direnv \
+  minio \
   util-linux-user \
   gcc-c++ \
   make \
   libffi-devel \
   zlib-devel \
-  readline-devel
+  readline-devel \
+  shellcheck
 
 # Mise installation
 if ! command -v mise >/dev/null; then
@@ -137,8 +139,8 @@ fancy_echo "Installing latest Node via mise ..."
 mise install node@latest
 mise use -g node@latest
 
-if [ -f "$HOME/.laptop.local" ]; then
-  fancy_echo "Running your customizations from ~/.laptop.local ..."
+if [ -f "$HOME/.fedora.local" ]; then
+  fancy_echo "Running your customizations from ~/.fedora.local ..."
   # shellcheck disable=SC1091
-  . "$HOME/.laptop.local"
+  . "$HOME/.fedora.local"
 fi

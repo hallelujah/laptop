@@ -89,6 +89,7 @@ sudo dnf install -y \
   ctags \
   zoxide \
   git \
+  openssl \
   openssl-devel \
   rcm \
   ripgrep \
@@ -102,6 +103,7 @@ sudo dnf install -y \
   coreutils \
   gnupg2 \
   postgresql-server \
+  postgresql-contrib \
   redis \
   util-linux-user \
   gcc-c++ \
@@ -118,6 +120,7 @@ sudo dnf install -y \
   pinentry-curses \
   hostname \
   xz \
+  chromium \
   shellcheck
 
 # Mise installation

@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+* Add missing build dependencies (`patch`, `bzip2`, `perl-core`, `gdbm-devel`, `ncurses-devel`) to the Fedora script to fix Ruby installation failures.
+* Install `minio` via `mise` instead of `dnf` on Fedora as it's not available in standard repositories.
+* Shellchecked both `mac` and `fedora` scripts and addressed linting warnings.
+* Fix `dnf config-manager` error on newer Fedora versions (Fedora 41+) by using the new `addrepo --from-repofile --overwrite` syntax while maintaining backward compatibility.
+* Replace asdf with mise
+
 ## 2025-07-09
 
 * Removed deprecated homebrew/services tap

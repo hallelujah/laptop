@@ -132,7 +132,7 @@ brew "rcm"
 brew "reattach-to-user-namespace"
 brew "ripgrep"
 brew "tmux"
-brew "vim"
+brew "neovim"
 brew "watchman"
 brew "zsh"
 

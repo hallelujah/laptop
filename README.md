@@ -79,7 +79,7 @@ macOS tools:
 Unix tools:
 
 * [fzf][] for better command history searching
-* [Universal Ctags] for indexing files for vim tab completion
+* [Universal Ctags] for indexing files for neovim tab completion
 * [Git] for version control
 * [OpenSSL] for Transport Layer Security (TLS)
 * [RCM] for managing company and personal dotfiles
@@ -229,7 +229,7 @@ you agree to abide by the thoughtbot [code of conduct].
 Edit the `mac` file.
 Document in the `README.md` file.
 Update the `CHANGELOG`.
-Follow shell style guidelines by using [ShellCheck] and [ALE] or deprecated [Syntastic].
+Follow shell style guidelines by using [ShellCheck] and [NeoVim] with [ALE] or deprecated [Syntastic].
 
 ```sh
 brew install shellcheck
@@ -238,6 +238,7 @@ brew install shellcheck
 [ShellCheck]: http://www.shellcheck.net/about.html
 [Syntastic]: https://github.com/scrooloose/syntastic
 [ALE]: https://github.com/dense-analysis/ale
+[NeoVim]: https://neovim.io/
 
 
 ### Testing your changes

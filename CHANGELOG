@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+* Replace Vim with NeoVim.
+
 * Add missing build dependencies (`patch`, `bzip2`, `perl-core`, `gdbm-devel`, `ncurses-devel`) to the Fedora script to fix Ruby installation failures.
 * Install `minio` via `mise` instead of `dnf` on Fedora as it's not available in standard repositories.
 * Shellchecked both `mac` and `fedora` scripts and addressed linting warnings.

@@ -7,7 +7,8 @@
 # shellcheck disable=SC3043
 
 fancy_echo() {
-  local fmt="$1"; shift
+  local fmt="$1"
+  shift
 
   # shellcheck disable=SC2059
   printf "\\n$fmt\\n" "$@"
@@ -25,9 +26,9 @@ append_to_zshrc() {
 
   if ! grep -Fqs "$text" "$zshrc"; then
     if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\\n" "$text" >> "$zshrc"
+      printf "%s\\n" "$text" >>"$zshrc"
     else
-      printf "\\n%s\\n" "$text" >> "$zshrc"
+      printf "\\n%s\\n" "$text" >>"$zshrc"
     fi
   fi
 }
@@ -57,11 +58,11 @@ else
 fi
 
 update_shell() {
-  local shell_path;
+  local shell_path
   shell_path="$(command -v zsh)"
 
   fancy_echo "Changing your shell to zsh ..."
-  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+  if ! grep "$shell_path" /etc/shells >/dev/null 2>&1; then
     fancy_echo "Adding '$shell_path' to /etc/shells"
     sudo sh -c "echo $shell_path >> /etc/shells"
   fi
@@ -69,22 +70,20 @@ update_shell() {
 }
 
 case "$SHELL" in
-  */zsh)
-    if [ "$(command -v zsh)" != "$HOMEBREW_PREFIX/bin/zsh" ] ; then
-      update_shell
-    fi
-    ;;
-  *)
+*/zsh)
+  if [ "$(command -v zsh)" != "$HOMEBREW_PREFIX/bin/zsh" ]; then
     update_shell
-    ;;
+  fi
+  ;;
+*)
+  update_shell
+  ;;
 esac
 
 # checks architecture
-if [ "$(uname -m)" = "arm64" ]
-  then
+if [ "$(uname -m)" = "arm64" ]; then
   # checks if Rosetta is already installed
-  if ! pkgutil --pkg-info=com.apple.pkg.RosettaUpdateAuto > /dev/null 2>&1
-  then
+  if ! pkgutil --pkg-info=com.apple.pkg.RosettaUpdateAuto >/dev/null 2>&1; then
     echo "Installing Rosetta"
     # Installs Rosetta2
     softwareupdate --install-rosetta --agree-to-license
@@ -93,9 +92,8 @@ if [ "$(uname -m)" = "arm64" ]
   fi
 fi
 
-
 gem_install_or_update() {
-  if gem list "$1" --installed > /dev/null; then
+  if gem list "$1" --installed >/dev/null; then
     gem update "$@"
   else
     gem install "$@"
@@ -104,12 +102,12 @@ gem_install_or_update() {
 
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
-    /bin/bash -c \
-      "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    append_to_zshrc "eval \"\$($HOMEBREW_PREFIX/bin/brew shellenv)\""
+  append_to_zshrc "eval \"\$($HOMEBREW_PREFIX/bin/brew shellenv)\""
 
-    export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+  export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 fi
 
 if brew list | grep -Fq brew-cask; then
@@ -168,6 +166,7 @@ cask "docker"
 
 # pinentry-mac
 brew "pinentry-mac"
+brew "keychain"
 EOF
 
 fancy_echo "Update heroku binary ..."

@@ -7,7 +7,8 @@
 # shellcheck disable=SC3043
 
 fancy_echo() {
-  local fmt="$1"; shift
+  local fmt="$1"
+  shift
 
   # shellcheck disable=SC2059
   printf "\\n$fmt\\n" "$@"
@@ -25,9 +26,9 @@ append_to_zshrc() {
 
   if ! grep -Fqs "$text" "$zshrc"; then
     if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\\n" "$text" >> "$zshrc"
+      printf "%s\\n" "$text" >>"$zshrc"
     else
-      printf "\\n%s\\n" "$text" >> "$zshrc"
+      printf "\\n%s\\n" "$text" >>"$zshrc"
     fi
   fi
 }
@@ -49,11 +50,11 @@ fi
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 update_shell() {
-  local shell_path;
+  local shell_path
   shell_path="/usr/bin/zsh"
 
   fancy_echo "Changing your shell to zsh ..."
-  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+  if ! grep "$shell_path" /etc/shells >/dev/null 2>&1; then
     fancy_echo "Installing zsh package"
     sudo dnf install -y zsh
   fi
@@ -61,11 +62,10 @@ update_shell() {
 }
 
 case "$SHELL" in
-  */zsh)
-    ;;
-  *)
-    update_shell
-    ;;
+*/zsh) ;;
+*)
+  update_shell
+  ;;
 esac
 
 fancy_echo "Updating dnf repositories ..."
@@ -76,7 +76,7 @@ sudo dnf check-update || true
 # For simplicity, we'll stick to what's likely available or commonly used.
 
 # Add github-cli repo if 'gh' is not found (though it is often in Fedora repos)
-if ! rpm -q gh > /dev/null 2>&1; then
+if ! rpm -q gh >/dev/null 2>&1; then
   if dnf --version | grep -q "dnf5"; then
     sudo dnf config-manager addrepo --overwrite --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
   else
@@ -121,13 +121,14 @@ sudo dnf install -y \
   xz \
   chromium \
   libatomic \
-  shellcheck
+  shellcheck \
+  keychain
 
 # Mise installation
 if ! command -v mise >/dev/null; then
   fancy_echo "Installing mise ..."
   curl https://mise.run | sh
-  
+
   # shellcheck disable=SC2016
   append_to_zshrc 'eval "$($HOME/.local/bin/mise activate zsh)"'
   export PATH="$HOME/.local/bin:$PATH"

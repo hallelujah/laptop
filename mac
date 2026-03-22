@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Welcome to the thoughtbot laptop script!
-# Be prepared to turn your laptop (or desktop, no haters here)
+# Be prepared to turn your machine
 # into an awesome development machine.
 
 # shellcheck disable=SC3043
@@ -194,8 +194,8 @@ bundle config --global jobs $((number_of_cores - 1))
 fancy_echo "Installing latest Node ..."
 mise use -g node@latest
 
-if [ -f "$HOME/.laptop.local" ]; then
-  fancy_echo "Running your customizations from ~/.laptop.local ..."
+if [ -f "$HOME/.setup.local" ]; then
+  fancy_echo "Running your customizations from ~/.setup.local ..."
   # shellcheck disable=SC1091
-  . "$HOME/.laptop.local"
+  . "$HOME/.setup.local"
 fi

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Welcome to the thoughtbot laptop script (NixOS edition)!
-# Be prepared to turn your laptop (or desktop, no haters here)
+# Be prepared to turn your machine
 # into an awesome development machine.
 
 # shellcheck disable=SC3043
@@ -73,8 +73,8 @@ fancy_echo "Installing core packages via nix-env ..."
 # This allows declarative-ish management of user-profile packages.
 nix-env -iA -f ./install.nix
 
-if [ -f "$HOME/.nixos.local" ]; then
-  fancy_echo "Running your customizations from ~/.nixos.local ..."
+if [ -f "$HOME/.setup.local" ]; then
+  fancy_echo "Running your customizations from ~/.setup.local ..."
   # shellcheck disable=SC1091
-  . "$HOME/.nixos.local"
+  . "$HOME/.setup.local"
 fi

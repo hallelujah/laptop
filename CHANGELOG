@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+* Use `~/.setup.local` for customizations across all supported operating systems (macOS, Fedora, NixOS).
+
+* Generalized "Laptop" references to indicate the script can be used on any machine (not just laptops).
+* Changed default log file name from `~/laptop.log` to `~/setup.log` in `README.md`.
 * Replace Vim with NeoVim.
 
 * Add missing build dependencies (`patch`, `bzip2`, `perl-core`, `gdbm-devel`, `ncurses-devel`) to the Fedora script to fix Ruby installation failures.

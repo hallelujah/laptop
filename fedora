@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Welcome to the thoughtbot laptop script (Fedora edition)!
-# Be prepared to turn your laptop (or desktop, no haters here)
+# Be prepared to turn your machine
 # into an awesome development machine.
 
 # shellcheck disable=SC3043
@@ -156,8 +156,8 @@ fancy_echo "Installing latest Node via mise ..."
 mise install node@latest
 mise use -g node@latest
 
-if [ -f "$HOME/.fedora.local" ]; then
-  fancy_echo "Running your customizations from ~/.fedora.local ..."
+if [ -f "$HOME/.setup.local" ]; then
+  fancy_echo "Running your customizations from ~/.setup.local ..."
   # shellcheck disable=SC1091
-  . "$HOME/.fedora.local"
+  . "$HOME/.setup.local"
 fi

@@ -1,7 +1,8 @@
 Laptop
 ======
 
-Laptop is a script to set up a macOS laptop for web and mobile development.
+Laptop is a script to set up a machine for web and mobile development.
+It supports macOS, Fedora, and NixOS.
 
 It can be run multiple times on the same machine safely.
 It installs, upgrades, or skips packages
@@ -45,17 +46,17 @@ less nixos
 Execute the script:
 
 ```sh
-sh mac 2>&1 | tee ~/laptop.log
+sh mac 2>&1 | tee ~/setup.log
 # or
-sh fedora 2>&1 | tee ~/laptop.log
+sh fedora 2>&1 | tee ~/setup.log
 # or
-sh nixos 2>&1 | tee ~/laptop.log
+sh nixos 2>&1 | tee ~/setup.log
 ```
 
 Optionally, review the log:
 
 ```sh
-less ~/laptop.log
+less ~/setup.log
 ```
 
 Optionally, [install thoughtbot/dotfiles][dotfiles].
@@ -65,7 +66,7 @@ Optionally, [install thoughtbot/dotfiles][dotfiles].
 Debugging
 ---------
 
-Your last Laptop run will be saved to `~/laptop.log`.
+Your last run will be saved to `~/setup.log`.
 Read through it to see if you can debug the issue yourself.
 If not, copy the lines where the script failed into a
 [new GitHub Issue](https://github.com/thoughtbot/laptop/issues/new) for us.
@@ -168,10 +169,10 @@ pinentry-mac:
 
 It should take less than 15 minutes to install (depends on your machine).
 
-Customize in `~/.laptop.local`, `~/.fedora.local`, or `~/.nixos.local`
+Customize in `~/.setup.local`
 ------------------------------
 
-Your `~/.laptop.local` (or `~/.fedora.local` / `~/.nixos.local`) is run at the end of the Laptop script.
+Your `~/.setup.local` is run at the end of the script.
 Put your customizations there.
 For example:
 

@@ -24,14 +24,15 @@ case "$OS" in
     if [ -f /etc/os-release ]; then
       # shellcheck disable=SC1091
       . /etc/os-release
+      SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
       case "$ID" in
         fedora)
           fancy_echo "Fedora detected. Running fedora setup..."
-          sh fedora "$@"
+          sh "$SCRIPT_DIR/fedora" "$@"
           ;;
         nixos)
           fancy_echo "NixOS detected. Running nixos setup..."
-          sh nixos "$@"
+          sh "$SCRIPT_DIR/nixos" "$@"
           ;;
         *)
           fancy_echo "Unsupported Linux distribution: $ID"
@@ -45,7 +46,8 @@ case "$OS" in
     ;;
   Darwin)
     fancy_echo "macOS detected. Running mac setup..."
-    sh mac "$@"
+    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+    sh "$SCRIPT_DIR/mac" "$@"
     ;;
   *)
     fancy_echo "Unsupported operating system: $OS"

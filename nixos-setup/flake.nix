@@ -19,7 +19,7 @@
   };
 
   # The outputs are the actual systems and configurations built from your inputs
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixos-wsl, nixpkgs, home-manager, ... }@inputs: {
 
     nixosConfigurations = {
       # "nixos-laptop" MUST match the networking.hostName defined in your configuration.nix

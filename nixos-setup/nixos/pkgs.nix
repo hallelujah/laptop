@@ -23,8 +23,6 @@
   # 2. User-specific tools (installed via Home Manager)
   home-manager.users.hery = { pkgs, ... }: {
     home.packages = with pkgs; [
-    ctags
-    zoxide
       ctags
       zoxide
       gh

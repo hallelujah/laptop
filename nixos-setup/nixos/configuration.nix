@@ -21,7 +21,7 @@
   users.users.hery = {
       isNormalUser = true;
       description = "Ramihajamalala Hery";
-      extraGroups = [ "wheel" "docker" ]; # networkmanager doesn't work in WSL
+      extraGroups = [ "wheel" ]; # networkmanager doesn't work in WSL
       shell = pkgs.zsh;
   };
 

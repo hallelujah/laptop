@@ -42,11 +42,8 @@ case "$SHELL" in
   ;;
 esac
 
-fancy_echo "Installing core packages via nix-env ..."
-# "Smart" installation: use nix-env to install from install.nix
-# This allows declarative-ish management of user-profile packages.
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-nix-env -iA -f "$SCRIPT_DIR/install.nix"
+fancy_echo "Applying NixOS Flake configuration ..."
+  sudo nixos-rebuild switch --flake "$SCRIPT_DIR/nixos-setup#nixos-laptop"
 
 if [ -f "$HOME/.setup.local" ]; then
   fancy_echo "Running your customizations from ~/.setup.local ..."

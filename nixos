@@ -23,25 +23,6 @@ if [ ! -d "$HOME/.bin/" ]; then
   mkdir "$HOME/.bin"
 fi
 
-update_shell() {
-  local shell_path
-  shell_path="/run/current-system/sw/bin/zsh"
-
-  fancy_echo "Changing your shell to zsh ..."
-  if [ ! -f "$shell_path" ]; then
-    fancy_echo "zsh not found at $shell_path. Please ensure it is installed via your NixOS configuration."
-    return
-  fi
-  sudo chsh -s "$shell_path" "$USER"
-}
-
-case "$SHELL" in
-*/zsh) ;;
-*)
-  update_shell
-  ;;
-esac
-
 fancy_echo "Applying NixOS Flake configuration ..."
   sudo nixos-rebuild switch --flake "$SCRIPT_DIR/nixos-setup#nixos-laptop"
 

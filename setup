@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# Welcome to the machine setup script!
+# This script detects your OS and runs the appropriate setup script.
+
+# shellcheck disable=SC3043
+
+fancy_echo() {
+  local fmt="$1"
+  shift
+
+  # shellcheck disable=SC2059
+  printf "\\n$fmt\\n" "$@"
+}
+
+# shellcheck disable=SC2154
+trap 'ret=$?; test $ret -ne 0 && printf "failed\\n\\n" >&2; exit $ret' EXIT
+
+set -e
+
+OS="$(uname -s)"
+case "$OS" in
+  Linux)
+    if [ -f /etc/os-release ]; then
+      # shellcheck disable=SC1091
+      . /etc/os-release
+      case "$ID" in
+        fedora)
+          fancy_echo "Fedora detected. Running fedora setup..."
+          sh fedora "$@"
+          ;;
+        nixos)
+          fancy_echo "NixOS detected. Running nixos setup..."
+          sh nixos "$@"
+          ;;
+        *)
+          fancy_echo "Unsupported Linux distribution: $ID"
+          exit 1
+          ;;
+      esac
+    else
+      fancy_echo "Linux detected, but /etc/os-release is missing. Cannot determine distribution."
+      exit 1
+    fi
+    ;;
+  Darwin)
+    fancy_echo "macOS detected. Running mac setup..."
+    sh mac "$@"
+    ;;
+  *)
+    fancy_echo "Unsupported operating system: $OS"
+    exit 1
+    ;;
+esac

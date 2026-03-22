@@ -36,6 +36,8 @@ cd ~/laptop
 Review the script (avoid running scripts you haven't read!):
 
 ```sh
+less setup
+# or
 less mac
 # or
 less fedora
@@ -46,11 +48,7 @@ less nixos
 Execute the script:
 
 ```sh
-sh mac 2>&1 | tee ~/setup.log
-# or
-sh fedora 2>&1 | tee ~/setup.log
-# or
-sh nixos 2>&1 | tee ~/setup.log
+sh setup 2>&1 | tee ~/setup.log
 ```
 
 Optionally, review the log:

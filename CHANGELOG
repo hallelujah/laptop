@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+* Added a unified `setup` script that detects the OS and runs the appropriate setup script (`mac`, `fedora`, or `nixos`).
+
 * Use `~/.setup.local` for customizations across all supported operating systems (macOS, Fedora, NixOS).
 
 * Generalized "Laptop" references to indicate the script can be used on any machine (not just laptops).

@@ -5,6 +5,7 @@
 # into an awesome development machine.
 
 # shellcheck disable=SC3043
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 fancy_echo() {
   local fmt="$1"

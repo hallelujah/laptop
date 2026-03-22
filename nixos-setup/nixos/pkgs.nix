@@ -8,6 +8,7 @@
     wget
     git
     gnupg
+    direnv
     openssh
     openssl
     rcm
@@ -18,6 +19,7 @@
     coreutils
     gcc
     gnumake
+    fd
   ];
 
   # 2. User-specific tools (installed via Home Manager)

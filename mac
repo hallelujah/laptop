@@ -14,25 +14,6 @@ fancy_echo() {
   printf "\\n$fmt\\n" "$@"
 }
 
-append_to_zshrc() {
-  local text="$1" zshrc
-  local skip_new_line="${2:-0}"
-
-  if [ -w "$HOME/.zshrc.local" ]; then
-    zshrc="$HOME/.zshrc.local"
-  else
-    zshrc="$HOME/.zshrc"
-  fi
-
-  if ! grep -Fqs "$text" "$zshrc"; then
-    if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\\n" "$text" >>"$zshrc"
-    else
-      printf "\\n%s\\n" "$text" >>"$zshrc"
-    fi
-  fi
-}
-
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 
@@ -41,13 +22,6 @@ set -e
 if [ ! -d "$HOME/.bin/" ]; then
   mkdir "$HOME/.bin"
 fi
-
-if [ ! -f "$HOME/.zshrc" ]; then
-  touch "$HOME/.zshrc"
-fi
-
-# shellcheck disable=SC2016
-append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 # Determine Homebrew prefix
 arch="$(uname -m)"
@@ -104,8 +78,6 @@ if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
   /bin/bash -c \
     "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-  append_to_zshrc "eval \"\$($HOMEBREW_PREFIX/bin/brew shellenv)\""
 
   export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 fi
@@ -176,23 +148,20 @@ brew link --force heroku
 fancy_echo "Configuring mise version manager ..."
 if ! command -v mise >/dev/null; then
   brew install mise
-  # shellcheck disable=SC2016
-  append_to_zshrc 'eval "$(mise activate zsh)"' 1
 else
   brew upgrade mise
 fi
 
-# shellcheck disable=SC1091
-eval "$(mise activate zsh)"
-
 fancy_echo "Installing latest Ruby ..."
-mise use -g ruby@latest
-gem update --system
-number_of_cores=$(sysctl -n hw.ncpu)
-bundle config --global jobs $((number_of_cores - 1))
+if command -v mise >/dev/null; then
+  mise use -g ruby@latest
+  gem update --system
+  number_of_cores=$(sysctl -n hw.ncpu)
+  bundle config --global jobs $((number_of_cores - 1))
 
-fancy_echo "Installing latest Node ..."
-mise use -g node@latest
+  fancy_echo "Installing latest Node ..."
+  mise use -g node@latest
+fi
 
 if [ -f "$HOME/.setup.local" ]; then
   fancy_echo "Running your customizations from ~/.setup.local ..."

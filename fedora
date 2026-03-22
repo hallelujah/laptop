@@ -14,25 +14,6 @@ fancy_echo() {
   printf "\\n$fmt\\n" "$@"
 }
 
-append_to_zshrc() {
-  local text="$1" zshrc
-  local skip_new_line="${2:-0}"
-
-  if [ -w "$HOME/.zshrc.local" ]; then
-    zshrc="$HOME/.zshrc.local"
-  else
-    zshrc="$HOME/.zshrc"
-  fi
-
-  if ! grep -Fqs "$text" "$zshrc"; then
-    if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\\n" "$text" >>"$zshrc"
-    else
-      printf "\\n%s\\n" "$text" >>"$zshrc"
-    fi
-  fi
-}
-
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\\n\\n" >&2; exit $ret' EXIT
 
@@ -41,13 +22,6 @@ set -e
 if [ ! -d "$HOME/.bin/" ]; then
   mkdir "$HOME/.bin"
 fi
-
-if [ ! -f "$HOME/.zshrc" ]; then
-  touch "$HOME/.zshrc"
-fi
-
-# shellcheck disable=SC2016
-append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 update_shell() {
   local shell_path
@@ -129,32 +103,30 @@ if ! command -v mise >/dev/null; then
   fancy_echo "Installing mise ..."
   curl https://mise.run | sh
 
-  # shellcheck disable=SC2016
-  append_to_zshrc 'eval "$($HOME/.local/bin/mise activate zsh)"'
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
 fancy_echo "Configuring mise ..."
-# shellcheck disable=SC2016
-append_to_zshrc 'eval "$($HOME/.local/bin/mise activate zsh)"' 1
 
 # mise plugins (some are built-in or don't need explicit 'plugin add' if using default registry)
 # For parity with the previous setup, we ensure they're available.
-mise use -g ruby@latest
-mise use -g node@latest
-mise use -g minio@latest
+if command -v mise >/dev/null; then
+  mise use -g ruby@latest
+  mise use -g node@latest
+  mise use -g minio@latest
 
-fancy_echo "Installing latest Ruby via mise ..."
-mise install ruby@latest
-mise use -g ruby@latest
+  fancy_echo "Installing latest Ruby via mise ..."
+  mise install ruby@latest
+  mise use -g ruby@latest
 
-mise exec ruby@latest -- gem update --system
-number_of_cores=$(nproc)
-mise exec ruby@latest -- bundle config --global jobs $((number_of_cores - 1))
+  mise exec ruby@latest -- gem update --system
+  number_of_cores=$(nproc)
+  mise exec ruby@latest -- bundle config --global jobs $((number_of_cores - 1))
 
-fancy_echo "Installing latest Node via mise ..."
-mise install node@latest
-mise use -g node@latest
+  fancy_echo "Installing latest Node via mise ..."
+  mise install node@latest
+  mise use -g node@latest
+fi
 
 if [ -f "$HOME/.setup.local" ]; then
   fancy_echo "Running your customizations from ~/.setup.local ..."

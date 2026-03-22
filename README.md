@@ -17,6 +17,7 @@ We support:
 * macOS Ventura (13.x) on Apple Silicon and Intel
 * macOS Monterey (12.x) on Apple Silicon and Intel
 * Linux Fedora 43
+* NixOS
 
 Older versions may work but aren't regularly tested.
 Bug reports for older versions are welcome.
@@ -24,12 +25,11 @@ Bug reports for older versions are welcome.
 Install
 -------
 
-Download the script:
+Clone the repository:
 
 ```sh
-curl --remote-name https://raw.githubusercontent.com/hallelujah/laptop/main/mac
-# or for Fedora:
-curl --remote-name https://raw.githubusercontent.com/hallelujah/laptop/main/fedora
+git clone https://github.com/hallelujah/laptop.git ~/laptop
+cd ~/laptop
 ```
 
 Review the script (avoid running scripts you haven't read!):
@@ -38,14 +38,18 @@ Review the script (avoid running scripts you haven't read!):
 less mac
 # or
 less fedora
+# or
+less nixos
 ```
 
-Execute the downloaded script:
+Execute the script:
 
 ```sh
 sh mac 2>&1 | tee ~/laptop.log
 # or
 sh fedora 2>&1 | tee ~/laptop.log
+# or
+sh nixos 2>&1 | tee ~/laptop.log
 ```
 
 Optionally, review the log:
@@ -117,18 +121,20 @@ Image tools:
 
 Programming languages, package managers, and configuration:
 
-* [mise] for managing programming language versions
+* [mise] for managing programming language versions (macOS and Fedora)
 * [Bundler] for managing Ruby libraries
-* [Node.js] and [npm], for running apps and installing JavaScript packages
-* [Ruby] stable for writing general-purpose code
+* [Node.js] and [npm], for running apps and installing JavaScript packages (managed by `mise` on macOS and Fedora, system packages on NixOS via `install.nix`)
+* [Ruby] stable for writing general-purpose code (managed by `mise` on macOS and Fedora, system package on NixOS via `install.nix`)
 * [Yarn] for managing JavaScript packages
 * [Rosetta 2] for running tools that are not supported in Apple silicon processors
+* [Nix] for declarative package management on NixOS via `install.nix`
 
 [Bundler]: http://bundler.io/
 [libvips]: https://www.libvips.org/
 [Node.js]: http://nodejs.org/
 [npm]: https://www.npmjs.org/
 [mise]: https://mise.jdx.dev/
+[Nix]: https://nixos.org/
 [Ruby]: https://www.ruby-lang.org/en/
 [Yarn]: https://yarnpkg.com/en/
 [Rosetta 2]: https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment
@@ -162,10 +168,10 @@ pinentry-mac:
 
 It should take less than 15 minutes to install (depends on your machine).
 
-Customize in `~/.laptop.local`
+Customize in `~/.laptop.local`, `~/.fedora.local`, or `~/.nixos.local`
 ------------------------------
 
-Your `~/.laptop.local` is run at the end of the Laptop script.
+Your `~/.laptop.local` (or `~/.fedora.local` / `~/.nixos.local`) is run at the end of the Laptop script.
 Put your customizations there.
 For example:
 
@@ -209,7 +215,7 @@ See the `mac` script for examples.
 
 Laptop functions such as `fancy_echo` and
 `gem_install_or_update`
-can be used in your `~/.laptop.local`.
+can be used in your local customization script.
 
 See the [wiki](https://github.com/thoughtbot/laptop/wiki)
 for more customization examples.

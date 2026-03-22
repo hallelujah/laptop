@@ -1,0 +1,38 @@
+{ pkgs ? import <nixpkgs> {} }:
+
+[
+  pkgs.ctags
+  pkgs.zoxide
+  pkgs.git
+  pkgs.openssl
+  pkgs.rcm
+  pkgs.ripgrep
+  pkgs.tmux
+  pkgs.neovim
+  pkgs.gh
+  pkgs.vips
+  pkgs.poppler_utils
+  pkgs.libyaml
+  pkgs.coreutils
+  pkgs.gnupg
+  pkgs.postgresql
+  pkgs.redis
+  pkgs.gcc
+  pkgs.gnumake
+  pkgs.patch
+  pkgs.bzip2
+  pkgs.libffi
+  pkgs.zlib
+  pkgs.readline
+  pkgs.gdbm
+  pkgs.ncurses
+  pkgs.gawk
+  pkgs.pinentry-curses
+  pkgs.hostname
+  pkgs.xz
+  pkgs.chromium
+  pkgs.shellcheck
+  pkgs.keychain
+  pkgs.ruby
+  pkgs.nodejs
+]

@@ -27,7 +27,7 @@
       zoxide
       gh
       vips
-      poppler_utils
+      poppler-utils
       libyaml
       patch
       bzip2

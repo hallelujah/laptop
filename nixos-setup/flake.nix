@@ -8,7 +8,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Add the NixOS-WSL input
-    nixos-wsl.url = "github:nix-community/NixOS-WSL.main";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     # Home Manager: Manages user packages
     home-manager = {

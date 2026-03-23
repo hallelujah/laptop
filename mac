@@ -96,6 +96,8 @@ tap "heroku/brew"
 # Unix
 brew "universal-ctags"
 brew "fzf"
+brew "fd"
+brew "tree-sitter"
 brew "git"
 brew "openssl"
 brew "rcm"

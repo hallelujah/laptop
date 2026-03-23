@@ -20,6 +20,7 @@
     gcc
     gnumake
     fd
+    tree-sitter
   ];
 
   # 2. User-specific tools (installed via Home Manager)

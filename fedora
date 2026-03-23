@@ -61,6 +61,9 @@ fi
 fancy_echo "Installing core packages via dnf ..."
 sudo dnf install -y \
   ctags \
+  fzf \
+  fd \
+  tree-sitter \
   zoxide \
   git \
   openssl \

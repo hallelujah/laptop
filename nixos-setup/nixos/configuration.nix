@@ -35,6 +35,17 @@
   # Enable zsh globally
   programs.zsh.enable = true;
 
+  services.openssh = {
+    enable = true;
+    ports = [ 8822 ];
+
+    # Recommended security settings:
+    settings = {
+      PasswordAuthentication = false; # Force SSH keys instead of passwords
+      PermitRootLogin = "no";
+    };
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

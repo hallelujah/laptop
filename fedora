@@ -64,6 +64,7 @@ sudo dnf install -y \
   zoxide \
   git \
   openssl \
+  libuuid-devel \
   openssl-devel \
   rcm \
   ripgrep \
@@ -75,9 +76,8 @@ sudo dnf install -y \
   libyaml-devel \
   coreutils \
   gnupg2 \
-  postgresql-server \
-  postgresql-contrib \
-  redis \
+  bison \
+  flex \
   util-linux-user \
   gcc-c++ \
   make \

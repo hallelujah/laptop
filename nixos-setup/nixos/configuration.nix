@@ -16,6 +16,7 @@
   # Add this inside your configuration.nix
   wsl.enable = true;
   wsl.defaultUser = "hery"; # This tells WSL to log in as you by default
+  wsl.wslConf.interop.enabled = true;
 
   # Make sure your user is defined (you probably already have this)
   users.users.hery = {

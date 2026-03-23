@@ -35,6 +35,21 @@
   # Enable zsh globally
   programs.zsh.enable = true;
 
+  # Enable nix-ld so pre-compiled binaries work (like JetBrains Gateway)
+  programs.nix-ld.enable = true;
+
+  # Provide common standard libraries that JetBrains and other dynamic binaries might need
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    fuse3
+    icu
+    nss
+    openssl
+    curl
+    expat
+  ];
+
   services.openssh = {
     enable = true;
     ports = [ 8822 ];

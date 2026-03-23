@@ -18,6 +18,12 @@
   wsl.defaultUser = "hery"; # This tells WSL to log in as you by default
   wsl.wslConf.interop.enabled = true;
 
+  # Link the WSLg Wayland socket to the location systemd expects
+  systemd.tmpfiles.rules = [
+    "L+ /run/user/1000/wayland-0 - - - - /mnt/wslg/runtime-dir/wayland-0"
+    "L+ /run/user/1000/wayland-0.lock - - - - /mnt/wslg/runtime-dir/wayland-0.lock"
+  ];
+
   # Make sure your user is defined (you probably already have this)
   users.users.hery = {
       isNormalUser = true;

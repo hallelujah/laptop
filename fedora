@@ -102,7 +102,6 @@ sudo dnf install -y \
   libatomic \
   shellcheck \
   fish \
-  hererocks \
   keychain
 
 # Mise installation

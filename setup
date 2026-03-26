@@ -20,37 +20,37 @@ set -e
 
 OS="$(uname -s)"
 case "$OS" in
-  Linux)
-    if [ -f /etc/os-release ]; then
-      # shellcheck disable=SC1091
-      . /etc/os-release
-      SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-      case "$ID" in
-        fedora)
-          fancy_echo "Fedora detected. Running fedora setup..."
-          sh "$SCRIPT_DIR/fedora" "$@"
-          ;;
-        nixos)
-          fancy_echo "NixOS detected. Running nixos setup..."
-          sh "$SCRIPT_DIR/nixos" "$@"
-          ;;
-        *)
-          fancy_echo "Unsupported Linux distribution: $ID"
-          exit 1
-          ;;
-      esac
-    else
-      fancy_echo "Linux detected, but /etc/os-release is missing. Cannot determine distribution."
-      exit 1
-    fi
-    ;;
-  Darwin)
-    fancy_echo "macOS detected. Running mac setup..."
+Linux)
+  if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    . /etc/os-release
     SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-    sh "$SCRIPT_DIR/mac" "$@"
-    ;;
-  *)
-    fancy_echo "Unsupported operating system: $OS"
+    case "$ID" in
+    fedora)
+      fancy_echo "Fedora detected. Running fedora setup..."
+      sh "$SCRIPT_DIR/fedora" "$@"
+      ;;
+    nixos)
+      fancy_echo "NixOS detected. Running nixos setup..."
+      sh "$SCRIPT_DIR/nixos" "$@"
+      ;;
+    *)
+      fancy_echo "Unsupported Linux distribution: $ID"
+      exit 1
+      ;;
+    esac
+  else
+    fancy_echo "Linux detected, but /etc/os-release is missing. Cannot determine distribution."
     exit 1
-    ;;
+  fi
+  ;;
+Darwin)
+  fancy_echo "macOS detected. Running mac setup..."
+  SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+  sh "$SCRIPT_DIR/mac" "$@"
+  ;;
+*)
+  fancy_echo "Unsupported operating system: $OS"
+  exit 1
+  ;;
 esac

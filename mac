@@ -141,6 +141,9 @@ cask "docker"
 # pinentry-mac
 brew "pinentry-mac"
 brew "keychain"
+brew "lynx"
+brew "fish"
+brew "hererocks"
 EOF
 
 fancy_echo "Update heroku binary ..."

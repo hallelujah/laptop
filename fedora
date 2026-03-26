@@ -65,6 +65,8 @@ sudo dnf install -y \
   fd \
   tree-sitter \
   zoxide \
+  lynx \
+  luajit-devel \
   git \
   openssl \
   libuuid-devel \
@@ -99,6 +101,8 @@ sudo dnf install -y \
   chromium \
   libatomic \
   shellcheck \
+  fish \
+  hererocks \
   keychain
 
 # Mise installation

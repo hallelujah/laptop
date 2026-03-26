@@ -20,7 +20,13 @@
     gcc
     gnumake
     fd
+    fish
+    lynx           # For URL fetching in CopilotChat
+    gnumake        # Required if you want the plugin to build itself
+    gcc            # C compiler for tiktoken_core
+    lua51Packages.lua # Provides the headers for Neovim's LuaJIT
     tree-sitter
+    hererocks
   ];
 
   # 2. User-specific tools (installed via Home Manager)

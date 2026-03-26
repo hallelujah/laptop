@@ -62,7 +62,7 @@ fancy_echo "Installing core packages via dnf ..."
 sudo dnf install -y \
   ctags \
   fzf \
-  fd \
+  fd-find \
   tree-sitter \
   zoxide \
   lynx \

@@ -24,7 +24,6 @@
     lynx           # For URL fetching in CopilotChat
     gnumake        # Required if you want the plugin to build itself
     gcc            # C compiler for tiktoken_core
-    lua51Packages.lua # Provides the headers for Neovim's LuaJIT
     tree-sitter
   ];
 
@@ -55,6 +54,15 @@
       keychain
       ruby
       nodejs
+
+      # --- Neovim Linters & Formatters ---
+      markdownlint-cli2
+      nodePackages.prettier
+      nodePackages.markdown-toc
+      rubyPackages.rubocop
+      shfmt
+      sqlfluff
+      stylua
     ];
     home.stateVersion = "23.11";
   };

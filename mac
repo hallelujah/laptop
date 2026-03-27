@@ -5,14 +5,9 @@
 # into an awesome development machine.
 
 # shellcheck disable=SC3043
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-fancy_echo() {
-  local fmt="$1"
-  shift
-
-  # shellcheck disable=SC2059
-  printf "\\n$fmt\\n" "$@"
-}
+. $SCRIPT_DIR/utils.sh
 
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
@@ -66,14 +61,6 @@ if [ "$(uname -m)" = "arm64" ]; then
   fi
 fi
 
-gem_install_or_update() {
-  if mise exec -- gem list "$1" --installed >/dev/null; then
-    mise exec -- gem update "$@"
-  else
-    mise exec -- gem install "$@"
-  fi
-}
-
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
   /bin/bash -c \
@@ -90,29 +77,14 @@ fi
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
-tap "thoughtbot/formulae"
-tap "heroku/brew"
-
 # Unix
 brew "universal-ctags"
-brew "fzf"
-brew "fd"
-brew "tree-sitter"
 brew "git"
 brew "openssl"
 brew "rcm"
 brew "reattach-to-user-namespace"
-brew "ripgrep"
-brew "tmux"
-brew "neovim"
 brew "watchman"
 brew "zsh"
-
-# Heroku
-brew "heroku/brew/heroku"
-
-# GitHub
-brew "gh"
 
 # Image manipulation
 brew "vips"
@@ -123,20 +95,7 @@ brew "poppler"
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
 brew "coreutils"
-brew "yarn"
 cask "gpg-suite-no-mail"
-
-# Databases
-brew "postgresql@18", restart_service: :changed
-brew "redis", restart_service: :changed
-
-# direnv
-brew "direnv"
-
-brew "zoxide"
-
-# Docker
-cask "docker"
 
 # pinentry-mac
 brew "pinentry-mac"
@@ -145,30 +104,6 @@ brew "lynx"
 brew "fish"
 EOF
 
-fancy_echo "Update heroku binary ..."
-brew unlink heroku
-brew link --force heroku
+install_mise
 
-fancy_echo "Configuring mise version manager ..."
-if ! command -v mise >/dev/null; then
-  brew install mise
-else
-  brew upgrade mise
-fi
-
-fancy_echo "Installing latest Ruby ..."
-if command -v mise >/dev/null; then
-  mise use -g ruby@latest
-  mise exec -- gem update --system
-  number_of_cores=$(sysctl -n hw.ncpu)
-  mise exec -- bundle config --global jobs $((number_of_cores - 1))
-
-  fancy_echo "Installing latest Node ..."
-  mise use -g node@latest
-fi
-
-if [ -f "$HOME/.setup.local" ]; then
-  fancy_echo "Running your customizations from ~/.setup.local ..."
-  # shellcheck disable=SC1091
-  . "$HOME/.setup.local"
-fi
+run_local_customizations

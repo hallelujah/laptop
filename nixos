@@ -4,31 +4,17 @@
 # Be prepared to turn your machine
 # into an awesome development machine.
 
-# shellcheck disable=SC3043
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-
-fancy_echo() {
-  local fmt="$1"
-  shift
-
-  # shellcheck disable=SC2059
-  printf "\\n$fmt\\n" "$@"
-}
-
-# shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\\n\\n" >&2; exit $ret' EXIT
 
 set -e
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+. $SCRIPT_DIR/utils.sh
 
 if [ ! -d "$HOME/.bin/" ]; then
   mkdir "$HOME/.bin"
 fi
 
 fancy_echo "Applying NixOS Flake configuration ..."
-  sudo nixos-rebuild switch --flake "$SCRIPT_DIR/nixos-setup#nixos-laptop"
-
-if [ -f "$HOME/.setup.local" ]; then
-  fancy_echo "Running your customizations from ~/.setup.local ..."
-  # shellcheck disable=SC1091
-  . "$HOME/.setup.local"
-fi
+sudo nixos-rebuild switch --flake "$SCRIPT_DIR/nixos-setup#nixos-laptop"

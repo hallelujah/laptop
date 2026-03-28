@@ -41,41 +41,39 @@ sudo dnf check-update || true
 
 fancy_echo "Installing core packages via dnf ..."
 sudo dnf install -y \
-  git \
-  openssl \
-  libuuid-devel \
-  openssl-devel \
-  rcm \
-  vips \
-  poppler-utils \
-  libyaml-devel \
-  coreutils \
-  gnupg2 \
   bison \
-  flex \
-  util-linux-user \
-  gcc-c++ \
-  make \
-  patch \
   bzip2 \
-  perl-core \
-  libffi-devel \
-  zlib-devel \
-  readline-devel \
-  gdbm-devel \
-  ncurses-devel \
-  gawk \
-  pinentry-curses \
-  hostname \
-  xz \
   chromium \
-  libatomic \
-  shellcheck \
-  fish \
+  coreutils \
   ctags \
+  fish \
+  flex \
+  gawk \
+  gcc-c++ \
+  gdbm-devel \
+  git \
+  gnupg2 \
+  hostname \
+  keychain \
+  libatomic \
+  libffi-devel \
+  libuuid-devel \
+  libyaml-devel \
   lynx \
-  keychain
+  make \
+  ncurses-devel \
+  openssl \
+  openssl-devel \
+  patch \
+  perl-core \
+  pinentry-curses \
+  poppler-utils \
+  rcm \
+  readline-devel \
+  shellcheck \
+  util-linux-user \
+  vips \
+  xz \
+  zlib-devel
 
 install_mise
-
-run_local_customizations

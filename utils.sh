@@ -46,11 +46,3 @@ run_local_customizations() {
     . "$HOME/.setup.local"
   fi
 }
-
-gem_install_or_update() {
-  if mise exec ruby@latest -- gem list "$1" --installed >/dev/null; then
-    mise exec ruby@latest -- gem update "$@"
-  else
-    mise exec ruby@latest -- gem install "$@"
-  fi
-}

@@ -5,7 +5,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-. $SCRIPOT_DIR/utils.sh
+. $SCRIPT_DIR/utils.sh
 
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\\n\\n" >&2; exit $ret' EXIT

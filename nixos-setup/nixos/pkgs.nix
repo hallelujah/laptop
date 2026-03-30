@@ -35,12 +35,14 @@
   home-manager.users.hery = { pkgs, ... }: {
     home.packages = with pkgs; [
       chromium
+        ast-grep
         ctags
         fd
         fzf
         gh
         git
         keychain
+        lazygit
         lynx           # For URL fetching in CopilotChat
         neovim
         nodejs

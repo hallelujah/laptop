@@ -16,6 +16,8 @@
 # Tells Home Manager to use the exact same nixpkgs version as the system
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
 # The outputs are the actual systems and configurations built from your inputs

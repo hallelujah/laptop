@@ -1,6 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
+  nixpkgs.overlays = [
+    inputs.neovim-nightly-overlay.overlays.default
+  ];
 # 1. System-wide packages (available to all users and the OS)
   environment.systemPackages = with pkgs; [
     bzip2

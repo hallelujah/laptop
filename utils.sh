@@ -26,17 +26,6 @@ install_mise() {
 
     export PATH="$HOME/.local/bin:$PATH"
   fi
-
-  fancy_echo "Copying configuration files ..."
-  mkdir -p "$HOME/.config"
-  cp -R $SCRIPT_DIR/config/* "$HOME/.config/"
-
-  fancy_echo "Installing packages via mise ..."
-  mise install
-
-  fancy_echo "Configuring RubyGems"
-  mise exec ruby@latest -- bundle config set --global jobs $((number_of_cores - 1))
-  mise exec ruby@latest -- gem update --system
 }
 
 run_local_customizations() {

@@ -47,6 +47,7 @@
         keychain
         lazygit
         lynx           # For URL fetching in CopilotChat
+        mise
         neovim
         nodejs
         poppler-utils

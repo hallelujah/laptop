@@ -20,13 +20,14 @@
 
 # Link the WSLg Wayland socket to the location systemd expects
   systemd.tmpfiles.rules = [
-    "L+ /run/user/1000/wayland-0 - - - - /mnt/wslg/runtime-dir/wayland-0"
-      "L+ /run/user/1000/wayland-0.lock - - - - /mnt/wslg/runtime-dir/wayland-0.lock"
+    "L+ /run/user/1001/wayland-0 - - - - /mnt/wslg/runtime-dir/wayland-0"
+      "L+ /run/user/1001/wayland-0.lock - - - - /mnt/wslg/runtime-dir/wayland-0.lock"
   ];
 
 # Make sure your user is defined (you probably already have this)
   users.users.hery = {
     isNormalUser = true;
+    uid = 1001;
     description = "Ramihajamalala Hery";
     extraGroups = [ "wheel" ]; # networkmanager doesn't work in WSL
       shell = pkgs.zsh;

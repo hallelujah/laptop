@@ -6,11 +6,13 @@
   ];
 # 1. System-wide packages (available to all users and the OS)
   environment.systemPackages = with pkgs; [
-    bzip2
+    bison
+      bzip2
       coreutils
       curl
       direnv
       fish
+      flex
       gawk
       gcc            # C compiler for tiktoken_core
       gdbm
@@ -26,6 +28,7 @@
       pinentry-curses
       python3
       readline
+      readline.dev
       unzip
       wget
       wl-clipboard
@@ -33,6 +36,10 @@
       zlib
       zsh
       ];
+
+  environment.sessionVariables = {
+    MISE_DISABLE_TOOLS = "lua,node,postgres,redis,ruby,tmux";
+  };
 
 # 2. User-specific tools (installed via Home Manager)
   home-manager.users.hery = { pkgs, ... }: {
@@ -46,6 +53,7 @@
         git
         keychain
         lazygit
+        lua5_1
         lynx           # For URL fetching in CopilotChat
         mise
         neovim
@@ -72,6 +80,7 @@
         sqlfluff
         stylua
         ];
+
     home.stateVersion = "23.11";
   };
 }

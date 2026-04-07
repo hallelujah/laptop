@@ -49,6 +49,7 @@
       openssl
       curl
       expat
+      readline
   ];
 
 # services.dbus = {

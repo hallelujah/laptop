@@ -74,8 +74,6 @@
         markdownlint-cli2
         markdown-toc
         prettier
-        rubyPackages.rubocop
-        rubyPackages.ruby-lsp
         shfmt
         sqlfluff
         stylua

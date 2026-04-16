@@ -37,10 +37,6 @@
       zsh
       ];
 
-  environment.sessionVariables = {
-    MISE_DISABLE_TOOLS = "lua,node,postgres,redis,ruby,tmux";
-  };
-
 # 2. User-specific tools (installed via Home Manager)
   home-manager.users.hery = { pkgs, ... }: {
     home.packages = with pkgs; [
@@ -78,6 +74,10 @@
         sqlfluff
         stylua
         ];
+
+    home.file.".miserc.toml".text = ''
+      env = ["nixos"]
+    '';
 
     home.stateVersion = "23.11";
   };

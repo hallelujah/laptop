@@ -11,6 +11,7 @@
       coreutils
       curl
       direnv
+      file
       fish
       flex
       gawk
@@ -29,6 +30,7 @@
       python3
       readline
       readline.dev
+      socat
       unzip
       wget
       wl-clipboard

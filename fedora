@@ -71,6 +71,7 @@ sudo dnf install -y \
   rcm \
   readline-devel \
   shellcheck \
+  socat \
   util-linux-user \
   vips \
   xz \

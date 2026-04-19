@@ -32,10 +32,15 @@
       unzip
       wget
       wl-clipboard
+      wslu
       xz
       zlib
       zsh
       ];
+
+  environment.sessionVariables = {
+    BROWSER = "wslview";
+  };
 
 # 2. User-specific tools (installed via Home Manager)
   home-manager.users.hery = { pkgs, ... }: {
@@ -77,7 +82,7 @@
 
     home.file.".miserc.toml".text = ''
       env = ["nixos"]
-    '';
+      '';
 
     home.stateVersion = "23.11";
   };

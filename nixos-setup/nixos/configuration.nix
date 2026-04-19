@@ -14,9 +14,12 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
 # Add this inside your configuration.nix
-  wsl.enable = true;
-  wsl.defaultUser = "hery"; # This tells WSL to log in as you by default
-    wsl.wslConf.interop.enabled = true;
+  wsl = {
+    enable = true;
+    defaultUser = "hery";
+    wslConf.interop.enabled = true;
+    wslConf.interop.appendWindowsPath = true;
+  };
 
 # Link the WSLg Wayland socket to the location systemd expects
   systemd.tmpfiles.rules = [

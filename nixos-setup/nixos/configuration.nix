@@ -17,6 +17,8 @@
   wsl = {
     enable = true;
     defaultUser = "hery";
+
+    interop.register = true;
     wslConf.interop.enabled = true;
     wslConf.interop.appendWindowsPath = true;
   };
